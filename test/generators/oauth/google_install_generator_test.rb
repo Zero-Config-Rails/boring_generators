@@ -22,6 +22,7 @@ class OauthGoogleInstallGeneratorTest < Rails::Generators::TestCase
       quietly { run_generator }
 
       assert_gem "omniauth-google-oauth2"
+      assert_gem "omniauth-rails_csrf_protection"
       assert_migration "db/migrate/add_omniauth_to_users.rb"
       assert_file "config/initializers/devise.rb" do |content|
         assert_match('config.omniauth :google_oauth2', content)
