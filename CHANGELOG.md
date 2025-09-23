@@ -1,7 +1,14 @@
 # Changelog
 
 ## master (unreleased)
+
 * Adds Sidekiq generator. ([@TheZero0-ctrl][])
+* Update Tailwind generator to use tailwindcss-rails gem instead of manually installing everything via npm ([@coolprobn][])
+* Fixed callback method name for Google OAuth2 Omniauth ([@coezbek][] & [@coolprobn][])
+
+## 0.15.0 (Oct 22nd, 2024)
+
+* Adds Gitlab CI generator. ([@coolprobn][])
 
 ## 0.14.0 (Aug 4th, 2024)
 
@@ -115,3 +122,4 @@
 [@aadil]: https://github.com/AdilRT
 [@mausamp]: https://github.com/mausamp
 [@TheZero0-ctrl]: https://github.com/TheZero0-ctrl
+[@coezbek]: https://github.com/coezbek
