@@ -5,6 +5,12 @@ require 'bundler'
 module Boring
   module Oauth
     module BaseGenerator
+      class MissingDeviseConfigurationError < StandardError; end
+
+      def add_omniauth_rails_csrf_protection_gem
+        check_and_install_gem("omniauth-rails_csrf_protection")
+      end
+      
       def add_provider_and_uuid_user_details
         say "Adding migration to add provider and uuid columns to users", :green
         Bundler.with_unbundled_env do

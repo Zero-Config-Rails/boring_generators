@@ -2,7 +2,8 @@
 
 ## master (unreleased)
 
-* Update Tailwind generator to use tailwindcss-rails gem instead of manually installing everything via npm
+* Update Tailwind generator to use tailwindcss-rails gem instead of manually installing everything via npm ([@coolprobn][])
+* Fixed callback method name for Google OAuth2 Omniauth ([@coezbek][] & [@coolprobn][])
 
 ## 0.15.0 (Oct 22nd, 2024)
 
@@ -120,3 +121,4 @@
 [@aadil]: https://github.com/AdilRT
 [@mausamp]: https://github.com/mausamp
 [@TheZero0-ctrl]: https://github.com/TheZero0-ctrl
+[@coezbek]: https://github.com/coezbek

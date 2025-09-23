@@ -15,9 +15,10 @@ Some setup you must do manually if you haven't yet:
      after registering the Rails application on: https://code.google.com/apis/console/
      For example:
 
-     config.omniauth :google_auth, "APP_ID", "APP_SECRET"
+     config.omniauth :google_oauth2, "APP_ID", "APP_SECRET"
 
   3. Your omniauth callback URL will be: `<host>/users/auth/google_oauth2/callback`. Please update
      callback URL in Google after registering your omniauth application.
+     e.g. https://boringgenerators.com/users/auth/google_oauth2/callback
 
 ===============================================================================
