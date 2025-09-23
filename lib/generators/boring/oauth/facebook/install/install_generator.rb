@@ -11,8 +11,6 @@ module Boring
         include BoringGenerators::GeneratorHelper
         include Boring::Oauth::BaseGenerator
 
-        class MissingDeviseConfigurationError < StandardError; end
-
         desc "Adds facebook OmniAuth to the application"
         source_root File.expand_path("templates", __dir__)
 

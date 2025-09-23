@@ -5,6 +5,8 @@ require 'bundler'
 module Boring
   module Oauth
     module BaseGenerator
+      class MissingDeviseConfigurationError < StandardError; end
+
       def add_omniauth_rails_csrf_protection_gem
         check_and_install_gem("omniauth-rails_csrf_protection")
       end
