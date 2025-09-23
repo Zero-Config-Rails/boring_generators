@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'boring_generators/generator_helper'
+require "boring_generators/generator_helper"
 
 module Boring
   module Sidekiq
@@ -10,21 +10,24 @@ module Boring
       desc "Adds Sidekiq to the application"
       source_root File.expand_path("templates", __dir__)
 
-      class_option :skip_routes,
+      class_option :skip_web_ui,
                    type: :boolean,
-                   aliases: "-sr",
+                   aliases: "-sw",
                    default: false,
-                   desc: "Tell us if you want to skip sidekiq routes for viewing Web UI. Defaults to false."
-      class_option :authenticate_routes_with_devise,
+                   desc:
+                     "Tell us if you want to skip sidekiq routes for viewing Web UI. Defaults to false."
+      class_option :skip_authenticated_web_ui,
                    type: :boolean,
-                   aliases: "-ar",
+                   aliases: "-saw",
                    default: false,
-                   desc: "Tell us if you want sidekiq routes to only be accessed by authenticated users. Defaults to false."
+                   desc:
+                     "Tell us if you want sidekiq web UI to only be accessed by authenticated users. Defaults to false."
       class_option :skip_procfile_config,
                    type: :boolean,
                    aliases: "-sp",
                    default: false,
-                   desc: "Tell us if you want to skip adding sidekiq worker to Procfile. Defaults to false."
+                   desc:
+                     "Tell us if you want to skip adding sidekiq worker to Procfile. Defaults to false."
 
       def add_sidekiq_gem
         say "Adding sidekiq gem to Gemfile", :green
@@ -41,23 +44,22 @@ module Boring
                            4
                          ),
                          after: /class Application < Rails::Application\n/
-                        
       end
 
-      def add_sidekiq_routes
-        return if options[:skip_routes]
+      def add_sidekiq_web_ui
+        return if options[:skip_web_ui]
 
-        say "Adding sidekiq routes", :green
+        say "Adding sidekiq web UI", :green
 
-        if options[:authenticate_routes_with_devise]
+        if options[:skip_authenticated_web_ui]
+          route = "mount Sidekiq::Web => '/sidekiq'\n\n"
+        else
           route = <<~RUBY
             authenticate :user do
               mount Sidekiq::Web => '/sidekiq'
             end
 
           RUBY
-        else
-          route = "mount Sidekiq::Web => '/sidekiq'\n\n"
         end
 
         inject_into_file "config/routes.rb",

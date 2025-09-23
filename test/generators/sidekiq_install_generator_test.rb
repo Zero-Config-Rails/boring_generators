@@ -26,6 +26,7 @@ class SidekiqInstallGeneratorTest < Rails::Generators::TestCase
       end
       assert_file "config/routes.rb" do |content|
         assert_match(/require 'sidekiq\/web'/, content)
+        assert_match(/authenticate :user do/, content)
         assert_match(/mount Sidekiq::Web/, content)
       end
 
@@ -35,9 +36,9 @@ class SidekiqInstallGeneratorTest < Rails::Generators::TestCase
     end
   end
 
-  def test_should_skip_sidekiq_routes
+  def test_should_skip_sidekiq_web_ui
     Dir.chdir(app_path) do
-      quietly { run_generator %w[--skip-routes] }
+      quietly { run_generator %w[--skip_web_ui] }
 
       assert_file "config/routes.rb" do |content|
         assert_no_match(/mount Sidekiq::Web/, content)
@@ -45,18 +46,18 @@ class SidekiqInstallGeneratorTest < Rails::Generators::TestCase
     end
   end
 
-  def test_should_authenticate_routes_with_devise
+  def test_should_skip_authenticated_web_ui
     Dir.chdir(app_path) do
-      quietly { run_generator %w[--authenticate_routes_with_devise] }
+      quietly { run_generator %w[--skip_authenticated_web_ui] }
 
       assert_file "config/routes.rb" do |content|
-        assert_match(/authenticate :user do/, content)
+        refute_match(/authenticate :user do/, content)
         assert_match(/mount Sidekiq::Web/, content)
       end
     end
   end
 
-  def test_should_skip_adding_sidekiq_worker_to_procfile
+  def test_should_skip_procfile_config
     Dir.chdir(app_path) do
       add_procfile
       quietly { run_generator %w[--skip_procfile_config] }
